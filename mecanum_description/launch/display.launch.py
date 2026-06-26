@@ -10,6 +10,7 @@ def generate_launch_description():
     pkg_description = get_package_share_directory('mecanum_description')
 
     xacro_file = os.path.join(pkg_description, 'urdf', 'mecanum_robot.urdf.xacro')
+    rviz_config = os.path.join(pkg_description, 'rviz', 'display.rviz')
 
     use_sim_time = LaunchConfiguration('use_sim_time')
 
@@ -23,7 +24,7 @@ def generate_launch_description():
         description='Use simulation (Gazebo) clock if true'
     )
 
-    # Robot State Publisher
+    # Robot State Publisher (publishes robot_description and TF)
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -34,10 +35,11 @@ def generate_launch_description():
         output='screen'
     )
 
-    # Joint State Publisher (for RViz standalone visualization)
-    joint_state_publisher_node = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
+    # RViz2
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        arguments=['-d', rviz_config],
         parameters=[{'use_sim_time': use_sim_time}],
         output='screen'
     )
@@ -45,5 +47,5 @@ def generate_launch_description():
     return LaunchDescription([
         use_sim_time_arg,
         robot_state_publisher_node,
-        joint_state_publisher_node,
+        rviz_node,
     ])
