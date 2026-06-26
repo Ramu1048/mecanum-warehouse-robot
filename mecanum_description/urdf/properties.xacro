@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <!-- Chassis Properties -->
+  <xacro:property name="chassis_length" value="0.40"/>
+  <xacro:property name="chassis_width" value="0.30"/>
+  <xacro:property name="chassis_height" value="0.12"/>
+  <xacro:property name="chassis_mass" value="5.0"/>
+
+  <!-- Wheel Properties -->
+  <xacro:property name="wheel_radius" value="0.05"/>
+  <xacro:property name="wheel_width" value="0.04"/>
+  <xacro:property name="wheel_mass" value="0.5"/>
+  <xacro:property name="wheel_x_offset" value="0.05"/>
+  <xacro:property name="wheel_y_offset" value="0.02"/>
+
+  <!-- LiDAR Properties -->
+  <xacro:property name="lidar_radius" value="0.035"/>
+  <xacro:property name="lidar_height" value="0.04"/>
+  <xacro:property name="lidar_mass" value="0.2"/>
+  <xacro:property name="lidar_z_offset" value="${chassis_height/2 + lidar_height/2}"/>
+
+  <!-- Inertia Macros -->
+  <xacro:macro name="box_inertia" params="m l w h">
+    <inertial>
+      <mass value="${m}"/>
+      <inertia ixx="${(m/12)*(w*w+h*h)}" ixy="0" ixz="0"
+               iyy="${(m/12)*(l*l+h*h)}" iyz="0"
+               izz="${(m/12)*(l*l+w*w)}"/>
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="cylinder_inertia" params="m r h">
+    <inertial>
+      <mass value="${m}"/>
+      <inertia ixx="${(m/12)*(3*r*r+h*h)}" ixy="0" ixz="0"
+               iyy="${(m/12)*(3*r*r+h*h)}" iyz="0"
+               izz="${(m/2)*r*r}"/>
+    </inertial>
+  </xacro:macro>
+
+</robot>
