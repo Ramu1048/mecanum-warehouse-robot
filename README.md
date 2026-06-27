@@ -88,26 +88,37 @@ source install/setup.bash
 
 ## Launch Gazebo
 
-```bash
+```source /opt/ros/humble/setup.bash
+
+source ~/mecanum-warehouse-robot/install/setup.bash
+
 ros2 launch mecanum_gazebo gazebo.launch.py
 ```
 
 ## Teleoperation
 
-```bash
+```source /opt/ros/humble/setup.bash
+
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
 ## Launch SLAM
 
-```bash
+```
+source /opt/ros/humble/setup.bash
+
+source ~/mecanum-warehouse-robot/install/setup.bash
+
 ros2 launch mecanum_gazebo slam.launch.py
+
 ```
 
 ## Save the Map
 
-```bash
-ros2 run nav2_map_server map_saver_cli -f ~/mecanum-warehouse-robot/maps/warehouse_map
+```source /opt/ros/humble/setup.bash
+
+ros2 run nav2_map_server map_saver_cli \
+-f ~/mecanum-warehouse-robot/mecanum_gazebo/maps/warehouse_map
 ```
 
 ---
